@@ -41,8 +41,6 @@ namespace WinForms
                 }
             }
             cbFavTeam.SelectedItem = selected;
-
-            LoadPlayers();
         }
 
         private async void LoadPlayers()

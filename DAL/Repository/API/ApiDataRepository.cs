@@ -49,12 +49,15 @@ namespace DAL.Repository.API
             {
                 if (fifaCountryCode == null) return await GetPlayers();
 
+                if (cachedMatches.Count == 0)
+                {
+                    cachedMatches.AddRange(JsonConvert.DeserializeObject<List<Match>>(Query("matches").Content));
+                }
+
                 List<Player> players = new List<Player>();
                 string country = await GetCountry(fifaCountryCode);
-                List<Match> matches = await GetMatches();
-
-                Parallel.ForEach(matches, match =>
-                {
+                
+                foreach (var match in cachedMatches) { 
                     if (match.HomeTeamStatistics.Country.Equals(country))
                     {
                         players.AddRange(match.HomeTeamStatistics.StartingEleven);
@@ -66,7 +69,7 @@ namespace DAL.Repository.API
                         players.AddRange(match.AwayTeamStatistics.StartingEleven);
                         players.AddRange(match.AwayTeamStatistics.Substitutes);
                     }
-                });
+                }
 
                 return players.ToHashSet();
             });
