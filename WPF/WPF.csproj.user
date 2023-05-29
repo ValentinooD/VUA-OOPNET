@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="UserControls\Field\FootballFieldUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\Field\PlayerBubbleUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\MatchInfoUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\NoMatchSelectedUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SettingsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="TeamInfoWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ControlTemplates\AnimatedButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\Field\FootballFieldUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\Field\PlayerBubbleUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\MatchInfoUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\NoMatchSelectedUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TeamInfoWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

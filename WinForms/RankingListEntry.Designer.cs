@@ -46,103 +46,61 @@
             // 
             // lbName
             // 
-            lbName.AutoSize = true;
-            lbName.Location = new Point(70, 4);
+            resources.ApplyResources(lbName, "lbName");
             lbName.Name = "lbName";
-            lbName.Size = new Size(38, 15);
-            lbName.TabIndex = 0;
-            lbName.Text = "label1";
             // 
             // lbPosition
             // 
-            lbPosition.AutoSize = true;
-            lbPosition.Location = new Point(150, 19);
+            resources.ApplyResources(lbPosition, "lbPosition");
             lbPosition.Name = "lbPosition";
-            lbPosition.Size = new Size(38, 15);
-            lbPosition.TabIndex = 1;
-            lbPosition.Text = "label1";
             // 
             // lbGoals
             // 
-            lbGoals.AutoSize = true;
-            lbGoals.Location = new Point(150, 34);
+            resources.ApplyResources(lbGoals, "lbGoals");
             lbGoals.Name = "lbGoals";
-            lbGoals.Size = new Size(38, 15);
-            lbGoals.TabIndex = 2;
-            lbGoals.Text = "label1";
             // 
             // lbYellowCards
             // 
-            lbYellowCards.AutoSize = true;
-            lbYellowCards.Location = new Point(150, 49);
+            resources.ApplyResources(lbYellowCards, "lbYellowCards");
             lbYellowCards.Name = "lbYellowCards";
-            lbYellowCards.Size = new Size(38, 15);
-            lbYellowCards.TabIndex = 3;
-            lbYellowCards.Text = "label1";
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(69, 19);
+            resources.ApplyResources(label1, "label1");
             label1.Name = "label1";
-            label1.Size = new Size(53, 15);
-            label1.TabIndex = 5;
-            label1.Text = "Position:";
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(70, 34);
+            resources.ApplyResources(label2, "label2");
             label2.Name = "label2";
-            label2.Size = new Size(39, 15);
-            label2.TabIndex = 6;
-            label2.Text = "Goals:";
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(70, 49);
+            resources.ApplyResources(label3, "label3");
             label3.Name = "label3";
-            label3.Size = new Size(75, 15);
-            label3.TabIndex = 7;
-            label3.Text = "Yellow cards:";
             // 
             // pbCaptain
             // 
-            pbCaptain.Image = (Image)resources.GetObject("pbCaptain.Image");
-            pbCaptain.InitialImage = (Image)resources.GetObject("pbCaptain.InitialImage");
-            pbCaptain.Location = new Point(285, 3);
+            resources.ApplyResources(pbCaptain, "pbCaptain");
             pbCaptain.Name = "pbCaptain";
-            pbCaptain.Size = new Size(25, 25);
-            pbCaptain.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbCaptain.TabIndex = 8;
             pbCaptain.TabStop = false;
             // 
             // pbFavourite
             // 
-            pbFavourite.Image = (Image)resources.GetObject("pbFavourite.Image");
-            pbFavourite.InitialImage = (Image)resources.GetObject("pbFavourite.InitialImage");
-            pbFavourite.Location = new Point(285, 34);
+            resources.ApplyResources(pbFavourite, "pbFavourite");
             pbFavourite.Name = "pbFavourite";
-            pbFavourite.Size = new Size(25, 25);
-            pbFavourite.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbFavourite.TabIndex = 9;
             pbFavourite.TabStop = false;
             // 
             // pbProfile
             // 
+            resources.ApplyResources(pbProfile, "pbProfile");
             pbProfile.Image = Properties.Resources.person;
-            pbProfile.InitialImage = (Image)resources.GetObject("pbProfile.InitialImage");
-            pbProfile.Location = new Point(4, 4);
             pbProfile.Name = "pbProfile";
-            pbProfile.Size = new Size(60, 60);
-            pbProfile.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbProfile.TabIndex = 10;
             pbProfile.TabStop = false;
             // 
             // RankingListEntry
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
             BorderStyle = BorderStyle.FixedSingle;
             Controls.Add(pbProfile);
@@ -156,7 +114,6 @@
             Controls.Add(lbPosition);
             Controls.Add(lbName);
             Name = "RankingListEntry";
-            Size = new Size(313, 70);
             Load += RankingListEntry_Load;
             ((System.ComponentModel.ISupportInitialize)pbCaptain).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbFavourite).EndInit();

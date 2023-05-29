@@ -1,0 +1,69 @@
+﻿<Window x:Class="WPF.TeamInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF"
+        mc:Ignorable="d"
+        Title="TeamInfoWindow" Height="300" Width="600">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Country: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
+            <Label x:Name="lbCountry" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="1"/>
+
+            <Label Content="Wins: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0"/>
+            <Label x:Name="lbWins" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="1"/>
+
+            <Label Content="Games Played: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0"/>
+            <Label x:Name="lbGamesPlayed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1"/>
+
+            <Label Content="Losses: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="0"/>
+            <Label x:Name="lbLosses" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="1"/>
+
+            <Label Content="Draws: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="4" Grid.Column="0"/>
+            <Label x:Name="lbDraws" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="4" Grid.Column="1"/>
+
+            <Label Content="Points: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="5" Grid.Column="0"/>
+            <Label x:Name="lbPoints" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="5" Grid.Column="1"/>
+            
+            <Label Content="Goals For: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="6" Grid.Column="0"/>
+            <Label x:Name="lbGoalsFor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="6" Grid.Column="1"/>
+            
+            <Label Content="Goals Against:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="7" Grid.Column="0"/>
+            <Label x:Name="lbGoalsAgainst" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="7" Grid.Column="1"/>
+            
+            <Label Content="Goals Differential: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="8" Grid.Column="0"/>
+            <Label x:Name="lbGoalsDiff" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="8" Grid.Column="1"/>
+        </Grid>
+
+        <ScrollViewer Grid.Column="1">
+            <StackPanel x:Name="spPlayerList" Orientation="Vertical">
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

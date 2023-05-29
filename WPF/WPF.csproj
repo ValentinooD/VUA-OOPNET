@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="UserControls\field.gif" />
+    <None Remove="UserControls\Field\field.png" />
+    <None Remove="UserControls\Field\shirt_black.png" />
+    <None Remove="UserControls\Field\shirt_white.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="UserControls\Field\field.gif" />
+    <Resource Include="UserControls\Field\field.png" />
+    <Resource Include="UserControls\Field\shirt_white.png" />
+    <Resource Include="UserControls\Field\shirt_black.png" />
+  </ItemGroup>
+
+</Project>

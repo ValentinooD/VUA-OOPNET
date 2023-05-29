@@ -76,6 +76,17 @@ namespace DAL.Models
 
         [JsonProperty("last_score_update_at")]
         public DateTimeOffset? LastScoreUpdateAt { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Match match &&
+                   FifaId == match.FifaId;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(FifaId);
+        }
     }
 
     public partial class Weather

@@ -4,7 +4,7 @@
     <Compile Update="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="InitialSettings.cs">
+    <Compile Update="SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="PlayerInfoUserControl.cs">

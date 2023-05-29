@@ -25,5 +25,10 @@ namespace DAL.Settings
 
         [JsonProperty("profile_pictures")]
         public Dictionary<string, string> ProfilePictures { get; set; } = new Dictionary<string, string>();
+
+        ///////// WPF ONLY \\\\\\\\\\
+        [JsonProperty("wpf_fav_away_team")] 
+        public string? FavouriteAwayTeam { get; set; }
+
     }
 }

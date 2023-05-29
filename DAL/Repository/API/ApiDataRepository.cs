@@ -51,6 +51,7 @@ namespace DAL.Repository.API
 
                 if (cachedMatches.Count == 0)
                 {
+                    cachedMatches.Clear();
                     cachedMatches.AddRange(JsonConvert.DeserializeObject<List<Match>>(Query("matches").Content));
                 }
 
@@ -81,7 +82,8 @@ namespace DAL.Repository.API
             {
                 if (cachedMatches.Count == 0)
                 {
-                    cachedMatches.AddRange(JsonConvert.DeserializeObject<List<Match>>(Query("matches").Content));
+                    cachedMatches.Clear();
+                    cachedMatches.AddRange(JsonConvert.DeserializeObject<List<Match>>(Query("matches").Content).ToHashSet().ToList());
                 }
 
                 return cachedMatches ?? new List<Match>();
@@ -94,10 +96,16 @@ namespace DAL.Repository.API
             {
                 if (cachedMatches.Count == 0)
                 {
+                    cachedMatches.Clear();
                     cachedMatches.AddRange(JsonConvert.DeserializeObject<List<Match>>(Query("matches").Content));
                 }
 
-                return cachedMatches.Where(x => x.WinnerCode.Equals(fifaCountryCode.ToUpper())).ToList(); ;
+                if (fifaCountryCode == null) return cachedMatches;
+
+                return cachedMatches.Where(x => {
+                    return x.HomeTeam.Code.Equals(fifaCountryCode.ToUpper())
+                            || x.AwayTeam.Code.Equals(fifaCountryCode.ToUpper());
+                }).ToHashSet().ToList();
             });
         }
 
@@ -107,6 +115,7 @@ namespace DAL.Repository.API
             {
                 if (cachedTeams.Count == 0)
                 {
+                    cachedTeams.Clear();
                     cachedTeams.AddRange(JsonConvert.DeserializeObject<List<Team>>(Query("teams").Content));
                 }
 
@@ -120,10 +129,22 @@ namespace DAL.Repository.API
             {
                 if (cachedResults == null || cachedResults.Count == 0)
                 {
+                    cachedResults.Clear();
                     cachedResults = JsonConvert.DeserializeObject<List<Result>>(Query("/teams/results").Content);
                 }
 
                 return cachedResults ?? new List<Result>();
+            });
+        }
+
+        public Task<Result?> GetTeamResult(string fifaCountryCode)
+        {
+            return Task.Run(async () =>
+            {
+                List<Result> list = await GetTeamsResults();
+                Result result = list.FirstOrDefault(x => x.FifaCode.Equals(fifaCountryCode), null);
+
+                return result;
             });
         }
 
@@ -133,6 +154,7 @@ namespace DAL.Repository.API
             {
                 if (cachedGroupedResults.Count == 0)
                 {
+                    cachedGroupedResults.Clear();
                     cachedGroupedResults.AddRange(JsonConvert.DeserializeObject<List<GroupedResult>>(Query("/teams/group_results").Content));
                 }
 
@@ -167,5 +189,6 @@ namespace DAL.Repository.API
             var response = client.ExecuteGet(request);
             return response;
         }
+
     }
 }

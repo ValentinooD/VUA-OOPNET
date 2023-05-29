@@ -90,7 +90,7 @@ namespace WinForms
 
                 Label label = new Label()
                 {
-                    Text = "Loading...",
+                    Text = Resource.loading,
                     Font = new Font("Arial", 24),
                     ForeColor = Color.YellowGreen,
                     AutoSize = true

@@ -28,79 +28,96 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             cbFavTeam = new ComboBox();
             label5 = new Label();
             flpPlayers = new FlowLayoutPanel();
             flpFavouritePlayers = new FlowLayoutPanel();
             btnRankingList = new Button();
+            menuStrip1 = new MenuStrip();
+            settingsToolStripMenuItem = new ToolStripMenuItem();
+            settingsToolStripMenuItem1 = new ToolStripMenuItem();
+            exitToolStripMenuItem = new ToolStripMenuItem();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // cbFavTeam
             // 
+            resources.ApplyResources(cbFavTeam, "cbFavTeam");
             cbFavTeam.FormattingEnabled = true;
-            cbFavTeam.Location = new Point(12, 32);
             cbFavTeam.Name = "cbFavTeam";
-            cbFavTeam.Size = new Size(190, 23);
-            cbFavTeam.TabIndex = 5;
             cbFavTeam.SelectedIndexChanged += cbFavTeam_SelectedIndexChanged;
             // 
             // label5
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(12, 9);
+            resources.ApplyResources(label5, "label5");
             label5.Name = "label5";
-            label5.Size = new Size(89, 15);
-            label5.TabIndex = 6;
-            label5.Text = "Favourite team:";
             // 
             // flpPlayers
             // 
+            resources.ApplyResources(flpPlayers, "flpPlayers");
             flpPlayers.AllowDrop = true;
-            flpPlayers.AutoScroll = true;
             flpPlayers.BorderStyle = BorderStyle.FixedSingle;
-            flpPlayers.Location = new Point(12, 61);
             flpPlayers.Name = "flpPlayers";
-            flpPlayers.Size = new Size(350, 370);
-            flpPlayers.TabIndex = 7;
             flpPlayers.DragDrop += flpPlayers_DragDrop;
             flpPlayers.DragEnter += flp_DragEnter;
             // 
             // flpFavouritePlayers
             // 
+            resources.ApplyResources(flpFavouritePlayers, "flpFavouritePlayers");
             flpFavouritePlayers.AllowDrop = true;
-            flpFavouritePlayers.AutoScroll = true;
             flpFavouritePlayers.BorderStyle = BorderStyle.FixedSingle;
-            flpFavouritePlayers.Location = new Point(438, 61);
             flpFavouritePlayers.Name = "flpFavouritePlayers";
-            flpFavouritePlayers.Size = new Size(350, 370);
-            flpFavouritePlayers.TabIndex = 8;
             flpFavouritePlayers.DragDrop += flpFavouritePlayers_DragDrop;
             flpFavouritePlayers.DragEnter += flp_DragEnter;
             // 
             // btnRankingList
             // 
-            btnRankingList.Location = new Point(658, 31);
+            resources.ApplyResources(btnRankingList, "btnRankingList");
             btnRankingList.Name = "btnRankingList";
-            btnRankingList.Size = new Size(130, 23);
-            btnRankingList.TabIndex = 9;
-            btnRankingList.Text = "Show ranking list";
             btnRankingList.UseVisualStyleBackColor = true;
             btnRankingList.Click += btnRankingList_Click;
             // 
+            // menuStrip1
+            // 
+            resources.ApplyResources(menuStrip1, "menuStrip1");
+            menuStrip1.Items.AddRange(new ToolStripItem[] { settingsToolStripMenuItem });
+            menuStrip1.Name = "menuStrip1";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            resources.ApplyResources(settingsToolStripMenuItem, "settingsToolStripMenuItem");
+            settingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { settingsToolStripMenuItem1, exitToolStripMenuItem });
+            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            // 
+            // settingsToolStripMenuItem1
+            // 
+            resources.ApplyResources(settingsToolStripMenuItem1, "settingsToolStripMenuItem1");
+            settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
+            settingsToolStripMenuItem1.Click += settingsToolStripMenuItem1_Click;
+            // 
+            // exitToolStripMenuItem
+            // 
+            resources.ApplyResources(exitToolStripMenuItem, "exitToolStripMenuItem");
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            // 
             // Main
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
             Controls.Add(btnRankingList);
             Controls.Add(flpFavouritePlayers);
             Controls.Add(flpPlayers);
             Controls.Add(label5);
             Controls.Add(cbFavTeam);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "Main";
-            Text = "OOP NET";
             FormClosing += Main_FormClosing;
             Load += Form1_Load;
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -111,5 +128,9 @@
         private FlowLayoutPanel flpPlayers;
         private FlowLayoutPanel flpFavouritePlayers;
         private Button btnRankingList;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem settingsToolStripMenuItem;
+        private ToolStripMenuItem settingsToolStripMenuItem1;
+        private ToolStripMenuItem exitToolStripMenuItem;
     }
 }

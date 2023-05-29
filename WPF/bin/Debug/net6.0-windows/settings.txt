@@ -1,0 +1,1 @@
+{"lang":"en","data_repo_type":"api","gender":"men","favourite_team_fifa_code":"CRO","favourite_player_names":[],"profile_pictures":{},"wpf_fav_away_team":"ARG"}

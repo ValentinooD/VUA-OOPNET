@@ -46,78 +46,54 @@
             // 
             // lbName
             // 
-            lbName.AutoSize = true;
-            lbName.Location = new Point(69, 3);
+            resources.ApplyResources(lbName, "lbName");
             lbName.Name = "lbName";
-            lbName.Size = new Size(38, 15);
-            lbName.TabIndex = 0;
-            lbName.Text = "label1";
             // 
             // lbPosition
             // 
-            lbPosition.AutoSize = true;
-            lbPosition.Location = new Point(69, 28);
+            resources.ApplyResources(lbPosition, "lbPosition");
             lbPosition.Name = "lbPosition";
-            lbPosition.Size = new Size(38, 15);
-            lbPosition.TabIndex = 1;
-            lbPosition.Text = "label1";
             // 
             // pbFavourite
             // 
-            pbFavourite.Image = (Image)resources.GetObject("pbFavourite.Image");
-            pbFavourite.InitialImage = (Image)resources.GetObject("pbFavourite.InitialImage");
-            pbFavourite.Location = new Point(249, 3);
+            resources.ApplyResources(pbFavourite, "pbFavourite");
             pbFavourite.Name = "pbFavourite";
-            pbFavourite.Size = new Size(25, 25);
-            pbFavourite.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbFavourite.TabIndex = 2;
             pbFavourite.TabStop = false;
             // 
             // pbCaptain
             // 
-            pbCaptain.Image = (Image)resources.GetObject("pbCaptain.Image");
-            pbCaptain.InitialImage = (Image)resources.GetObject("pbCaptain.InitialImage");
-            pbCaptain.Location = new Point(218, 3);
+            resources.ApplyResources(pbCaptain, "pbCaptain");
             pbCaptain.Name = "pbCaptain";
-            pbCaptain.Size = new Size(25, 25);
-            pbCaptain.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbCaptain.TabIndex = 3;
             pbCaptain.TabStop = false;
             // 
             // pbProfile
             // 
+            resources.ApplyResources(pbProfile, "pbProfile");
             pbProfile.Image = Properties.Resources.person;
-            pbProfile.InitialImage = (Image)resources.GetObject("pbProfile.InitialImage");
-            pbProfile.Location = new Point(3, 3);
             pbProfile.Name = "pbProfile";
-            pbProfile.Size = new Size(60, 60);
-            pbProfile.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbProfile.TabIndex = 4;
             pbProfile.TabStop = false;
             // 
             // cms
             // 
+            resources.ApplyResources(cms, "cms");
             cms.Items.AddRange(new ToolStripItem[] { changePictureToolStripMenuItem, removePictureToolStripMenuItem });
             cms.Name = "contextMenuStrip1";
-            cms.Size = new Size(158, 48);
             // 
             // changePictureToolStripMenuItem
             // 
+            resources.ApplyResources(changePictureToolStripMenuItem, "changePictureToolStripMenuItem");
             changePictureToolStripMenuItem.Name = "changePictureToolStripMenuItem";
-            changePictureToolStripMenuItem.Size = new Size(157, 22);
-            changePictureToolStripMenuItem.Text = "Change picture";
             changePictureToolStripMenuItem.Click += changePictureToolStripMenuItem_Click;
             // 
             // removePictureToolStripMenuItem
             // 
+            resources.ApplyResources(removePictureToolStripMenuItem, "removePictureToolStripMenuItem");
             removePictureToolStripMenuItem.Name = "removePictureToolStripMenuItem";
-            removePictureToolStripMenuItem.Size = new Size(157, 22);
-            removePictureToolStripMenuItem.Text = "Remove picture";
             removePictureToolStripMenuItem.Click += removePictureToolStripMenuItem_Click;
             // 
             // PlayerInfoUserControl
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
             BorderStyle = BorderStyle.FixedSingle;
             Controls.Add(pbProfile);
@@ -126,7 +102,6 @@
             Controls.Add(lbPosition);
             Controls.Add(lbName);
             Name = "PlayerInfoUserControl";
-            Size = new Size(277, 67);
             MouseDown += PlayerInfoUserControl_MouseDown;
             ((System.ComponentModel.ISupportInitialize)pbFavourite).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbCaptain).EndInit();

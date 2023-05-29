@@ -18,14 +18,28 @@ namespace WinForms
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            InitialSettings initial = new InitialSettings();
-            initial.ShowDialog();
+            if (SettingsService.IsFirstRun())
+            {
+                SettingsForm initial = new SettingsForm();
+                initial.ShowDialog();
 
-            settings = initial.GetSettings();
+                settings = initial.GetSettings();
+            }
+            else
+            {
+                settings = SettingsService.Load();
+            }
 
             SetCulture(settings.Language);
 
             repository = DataRepositoryFactory.GetRepository(settings.DataRepositoryType, settings.Gender);
+
+            LoadComboBox();
+        }
+
+        private async void LoadComboBox()
+        {
+            cbFavTeam.Items.Clear();
 
             SetLoading(true);
 
@@ -40,7 +54,15 @@ namespace WinForms
                     selected = team;
                 }
             }
-            cbFavTeam.SelectedItem = selected;
+            cbFavTeam.SelectedItem = selected; // This calls LoadPlayers()
+
+            // Since LoadPlayers() isn't called, we have to reset the loading state here
+            if (selected == null)
+            {
+                settings.FavouriteTeam = null;
+                cbFavTeam.SelectedIndex = -1; // also remove selection from ComboBox
+                SetLoading(false);
+            }
         }
 
         private async void LoadPlayers()
@@ -83,6 +105,9 @@ namespace WinForms
 
             Thread.CurrentThread.CurrentUICulture = culture;
             Thread.CurrentThread.CurrentCulture = culture;
+
+            this.Controls.Clear();
+            InitializeComponent();
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -96,6 +121,12 @@ namespace WinForms
         private void cbFavTeam_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox box = (ComboBox)sender;
+
+            if (box.SelectedItem == null)
+            {
+                settings.FavouriteTeam = null;
+                return;
+            }
 
             settings.FavouriteTeam = ((Team)box.SelectedItem).FifaCode;
 
@@ -130,7 +161,7 @@ namespace WinForms
                 {
                     return;
                 }
-                
+
                 settings.FavouritePlayerNames.Add(ctrl.GetPlayer().Name);
 
                 flpPlayers.Controls.Remove(ctrl);
@@ -167,12 +198,34 @@ namespace WinForms
         {
             if (settings.FavouriteTeam == null)
             {
-                MessageBox.Show("Please select a team before viewing the ranking list.");
+                MessageBox.Show(Resource.err_no_selection);
                 return;
             }
 
             RankingList list = new RankingList(settings, repository, settings.FavouriteTeam);
             list.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void settingsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SettingsForm sett = new SettingsForm(settings);
+            sett.ShowDialog();
+
+            settings = sett.GetSettings();
+
+            SetCulture(settings.Language);
+
+            repository = DataRepositoryFactory.GetRepository(settings.DataRepositoryType, settings.Gender);
+
+            flpPlayers.Controls.Clear();
+            flpFavouritePlayers.Controls.Clear();
+
+            LoadComboBox();
         }
     }
 }

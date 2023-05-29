@@ -35,7 +35,7 @@ namespace DAL.Models
 
         public override string ToString()
         {
-            return Country + " (" + FifaCode + ")";
+            return Country + " (" + (FifaCode != null ? FifaCode : Code) + ")";
         }
     }
 
