@@ -1,50 +1,9 @@
 ﻿using DAL.Models;
 using DAL.Repository;
-using DAL.Repository.API;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.JSON
 {
-    // Generated from https://app.quicktype.io/?l=csharp
-
-    internal class GenericEnumConverter<E> : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t.IsEnum;
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-
-            throw new Exception("Cannot unmarshal '" + value + "' with GenericEnumConverter");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (Status)untypedValue;
-            if (value == Status.Completed)
-            {
-                serializer.Serialize(writer, "completed");
-                return;
-            }
-
-
-            throw new Exception("Cannot marshal '" + value + "' with GenericEnumConverter");
-        }
-
-        //public static readonly DataRepositoryTypeConverter Singleton = new DataRepositoryTypeConverter();
-    }
-
     internal class DataRepositoryTypeConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t.IsEnum;

@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using DAL.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +19,16 @@ using WPF.UserControls;
 
 namespace WPF
 {
-    /// <summary>
-    /// Interaction logic for MatchInfoUserControl.xaml
-    /// </summary>
     public partial class MatchInfoUserControl : UserControl
     {
+        private Settings settings;
         private Team home;
         private Team away;
         private Match match;
 
-        public MatchInfoUserControl(Team home, Team away, Match match)
+        public MatchInfoUserControl(Settings settings, Team home, Team away, Match match)
         {
+            this.settings = settings;
             this.home = home;
             this.away = away;
             this.match = match;
@@ -60,7 +60,7 @@ namespace WPF
             lbHomeScore.Content = (home == match.HomeTeam ? match.HomeTeam.Goals : match.AwayTeam.Goals);
             lbAwayScore.Content = (away == match.AwayTeam ? match.AwayTeam.Goals : match.HomeTeam.Goals);
 
-            ucFootballField.Content = new FootballFieldUserControl(home, away, match);
+            ucFootballField.Content = new FootballFieldUserControl(settings, home, away, match);
         }
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
+        xmlns:lang="clr-namespace:WPF.Properties"
         mc:Ignorable="d"
         Title="TeamInfoWindow" Height="300" Width="600">
 
@@ -32,31 +33,31 @@
                 <RowDefinition Height="28"/>
             </Grid.RowDefinitions>
 
-            <Label Content="Country: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
+            <Label Content="{x:Static lang:Resources.info_country}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
             <Label x:Name="lbCountry" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="1"/>
 
-            <Label Content="Wins: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0"/>
+            <Label Content="{x:Static lang:Resources.info_wins}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0"/>
             <Label x:Name="lbWins" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="1"/>
 
-            <Label Content="Games Played: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0"/>
+            <Label Content="{x:Static lang:Resources.info_games_played}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0"/>
             <Label x:Name="lbGamesPlayed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1"/>
 
-            <Label Content="Losses: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="0"/>
+            <Label Content="{x:Static lang:Resources.info_losses}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="0"/>
             <Label x:Name="lbLosses" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="1"/>
 
-            <Label Content="Draws: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="4" Grid.Column="0"/>
+            <Label Content="{x:Static lang:Resources.info_draws}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="4" Grid.Column="0"/>
             <Label x:Name="lbDraws" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="4" Grid.Column="1"/>
 
-            <Label Content="Points: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="5" Grid.Column="0"/>
+            <Label Content="{x:Static lang:Resources.info_points}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="5" Grid.Column="0"/>
             <Label x:Name="lbPoints" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="5" Grid.Column="1"/>
-            
-            <Label Content="Goals For: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="6" Grid.Column="0"/>
+
+            <Label Content="{x:Static lang:Resources.info_goals_for}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="6" Grid.Column="0"/>
             <Label x:Name="lbGoalsFor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="6" Grid.Column="1"/>
-            
-            <Label Content="Goals Against:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="7" Grid.Column="0"/>
+
+            <Label Content="{x:Static lang:Resources.info_goals_against}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="7" Grid.Column="0"/>
             <Label x:Name="lbGoalsAgainst" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="7" Grid.Column="1"/>
-            
-            <Label Content="Goals Differential: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="8" Grid.Column="0"/>
+
+            <Label Content="{x:Static lang:Resources.info_goals_diff}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="8" Grid.Column="0"/>
             <Label x:Name="lbGoalsDiff" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="8" Grid.Column="1"/>
         </Grid>
 

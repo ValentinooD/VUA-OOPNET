@@ -49,5 +49,7 @@ namespace WPF.UserControls.Field
                 lbShirtNumber.Foreground = new SolidColorBrush(Colors.White);
             }
         }
+
+        public Player Player { get { return player; } }
     }
 }

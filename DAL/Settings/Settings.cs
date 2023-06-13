@@ -1,6 +1,7 @@
 ﻿using DAL.JSON;
 using DAL.Repository;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace DAL.Settings
 {
@@ -30,5 +31,19 @@ namespace DAL.Settings
         [JsonProperty("wpf_fav_away_team")] 
         public string? FavouriteAwayTeam { get; set; }
 
+        [JsonProperty("resolution")]
+        public Resolution? Resolution { get; set; } = new Resolution();
+    }
+
+    public class Resolution
+    {
+        public WindowState State { get; set; } = WindowState.Normal;
+        public int? Width { get; set; }
+        public int? Height { get; set; }
+
+        public enum WindowState
+        {
+            Normal, FullScreen, SaveLast
+        }
     }
 }

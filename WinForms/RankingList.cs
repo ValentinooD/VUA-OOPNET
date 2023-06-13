@@ -1,6 +1,7 @@
 ﻿using DAL.Models;
 using DAL.Repository;
 using DAL.Settings;
+using System.Drawing.Printing;
 
 namespace WinForms
 {
@@ -9,7 +10,10 @@ namespace WinForms
         private Settings settings;
         private IDataRepository repository;
         private string favouriteTeam;
-        private List<RankingListEntry> players = new List<RankingListEntry>();
+        private List<Player> players = new List<Player>();
+        private List<Match> matches = new List<Match>();
+        private List<PlayerRankingListEntry> playersEntriesList = new List<PlayerRankingListEntry>();
+        private List<MatchRankingListEntry> matchesEntriesList = new List<MatchRankingListEntry>();
 
         public RankingList(Settings settings, IDataRepository repository, string favouriteTeam)
         {
@@ -24,24 +28,48 @@ namespace WinForms
         {
             SetLoading(true);
 
-            List<RankingListEntry> players = await GetPlayersTask();
-            foreach (var item in players)
-            {
-                flpPlayers.Controls.Add(item);
-            }
+            await GetPlayersTask();
+
+            cbWhat.Items.Add("Players");
+            cbWhat.Items.Add("Matches");
 
             SetLoading(false);
+
+            cbWhat.SelectedIndex = 0;
         }
 
-        private Task<List<RankingListEntry>> GetPlayersTask()
+        private void cbWhat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            flpContainer.Controls.Clear();
+
+            if (cbWhat.SelectedIndex == 0)
+            {
+                foreach (PlayerRankingListEntry item in playersEntriesList)
+                {
+                    flpContainer.Controls.Add(item);
+                }
+            }
+            else
+            {
+                foreach (MatchRankingListEntry item in matchesEntriesList)
+                {
+                    flpContainer.Controls.Add(item);
+                }
+            }
+        }
+
+        private Task<List<PlayerRankingListEntry>> GetPlayersTask()
         {
             return Task.Run(() =>
             {
-                List<Match> matches = repository.GetMatches(favouriteTeam).Result;
+                matches = repository.GetMatches(favouriteTeam).Result;
 
-                repository.GetPlayers(favouriteTeam).Result.ToList().ForEach(p =>
+                players = repository.GetPlayers(favouriteTeam).Result.ToList();
+                players.Sort();
+
+                players.ForEach(p =>
                     {
-                        players.Add(new RankingListEntry(settings, p));
+                        playersEntriesList.Add(new PlayerRankingListEntry(settings, p));
                     });
 
                 Dictionary<string, int> goals = new Dictionary<string, int>();
@@ -54,18 +82,18 @@ namespace WinForms
 
                     CalculateEventOccurrances(yellowCards, match.HomeTeamEvents, TypeOfEvent.YellowCard, TypeOfEvent.YellowCardSecond);
                     CalculateEventOccurrances(yellowCards, match.AwayTeamEvents, TypeOfEvent.YellowCard, TypeOfEvent.YellowCardSecond);
+
+                    matchesEntriesList.Add(new MatchRankingListEntry(match));
                 }
 
-                foreach (var player in players)
+                foreach (var player in playersEntriesList)
                 {
                     player.GoalsScored = goals.GetValueOrDefault(player.Player.Name, 0);
                     player.YellowCards = yellowCards.GetValueOrDefault(player.Player.Name, 0);
                 }
-                players.Sort();
+                playersEntriesList.Sort();
 
-                Thread.Sleep(1000);
-
-                return players;
+                return playersEntriesList;
             });
         }
 
@@ -82,7 +110,7 @@ namespace WinForms
 
         public void SetLoading(bool loading)
         {
-            btnPrint.Enabled = !loading;
+            btnPrintPlayers.Enabled = !loading;
 
             if (loading)
             {
@@ -111,24 +139,85 @@ namespace WinForms
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.PrintPage += Document_Players;
+
+            PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
+            printPreviewDialog.Document = printDocument;
+
             printPreviewDialog.ShowDialog();
         }
 
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        private void btnPrintMatches_Click(object sender, EventArgs e)
         {
-            var x = e.MarginBounds.Left;
-            var y = e.MarginBounds.Top;
-            var bmp = new Bitmap(this.Size.Width, this.Size.Height);
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.PrintPage += Document_Matches;
 
-            // each control has a defined DrawToBitmap method
-            this.DrawToBitmap(bmp, new Rectangle
+            PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
+            printPreviewDialog.Document = printDocument;
+
+            printPreviewDialog.ShowDialog();
+        }
+
+        private void Document_Matches(object sender, PrintPageEventArgs e)
+        {
+            if (e.Graphics == null) return;
+
+            Graphics graphics = e.Graphics;
+            float currentY = 10;
+
+            // Print match results
+            graphics.DrawString("Matches", new Font("Arial", 18, FontStyle.Bold), Brushes.Black, new PointF(100, currentY));
+            currentY += 30;
+
+            foreach (Match match in matches)
             {
-                X = 0,
-                Y = 0,
-                Width = this.Size.Width,
-                Height = this.Size.Height
-            });
-            e.Graphics?.DrawImage(bmp, x, y);
+                graphics.DrawString(match.HomeTeam.ToString() + " vs " + match.AwayTeam.ToString(), new Font("Arial", 12), Brushes.Black, new PointF(20, currentY));
+
+                currentY += 20;
+
+                graphics.DrawString("Attendance: " + match.Attendance, new Font("Arial", 12), Brushes.Black, new PointF(40, currentY));
+
+                graphics.DrawString("Winner: " + match.Winner, new Font("Arial", 12), Brushes.Black, new PointF(300, currentY));
+
+                graphics.DrawString("Location: " + match.Location, new Font("Arial", 12), Brushes.Black, new PointF(500, currentY));
+
+                currentY += 25;
+            }
+        }
+
+        private void Document_Players(object sender, PrintPageEventArgs e)
+        {
+            if (e.Graphics == null) return;
+
+            Graphics graphics = e.Graphics;
+            float currentY = 10;
+
+            // Print match results
+            graphics.DrawString("Players", new Font("Arial", 18, FontStyle.Bold), Brushes.Black, new PointF(100, currentY));
+            currentY += 30;
+
+            foreach (PlayerRankingListEntry entry in playersEntriesList)
+            {
+                Player player = entry.Player;
+
+                graphics.DrawString(player.Name + " (" + player.ShirtNumber + ")", new Font("Arial", 12), Brushes.Black, new PointF(20, currentY));
+
+                graphics.DrawString(player.Position + "", new Font("Arial", 12), Brushes.Black, new PointF(300, currentY));
+
+                graphics.DrawString("Captain: " + (player.Captain ? "yes" : "no"), new Font("Arial", 12), Brushes.Black, new PointF(500, currentY));
+
+                currentY += 20;
+
+                graphics.DrawString("Goals scored: " + entry.GoalsScored, new Font("Arial", 12), Brushes.Black, new PointF(300, currentY));
+
+                graphics.DrawString("Appearances: " + entry.Appearances, new Font("Arial", 12), Brushes.Black, new PointF(500, currentY));
+
+                graphics.DrawString("Yellow cards: " + entry.YellowCards, new Font("Arial", 12), Brushes.Black, new PointF(700, currentY));
+
+                currentY += 25;
+            }
         }
     }
 }

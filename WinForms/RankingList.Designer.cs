@@ -29,43 +29,49 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RankingList));
-            flpPlayers = new FlowLayoutPanel();
-            btnPrint = new Button();
+            flpContainer = new FlowLayoutPanel();
+            btnPrintPlayers = new Button();
             pnlMain = new Panel();
-            printPreviewDialog = new PrintPreviewDialog();
-            printDocument = new System.Drawing.Printing.PrintDocument();
+            cbWhat = new ComboBox();
+            btnPrintMatches = new Button();
             pnlMain.SuspendLayout();
             SuspendLayout();
             // 
-            // flpPlayers
+            // flpContainer
             // 
-            resources.ApplyResources(flpPlayers, "flpPlayers");
-            flpPlayers.AllowDrop = true;
-            flpPlayers.Name = "flpPlayers";
+            flpContainer.AllowDrop = true;
+            resources.ApplyResources(flpContainer, "flpContainer");
+            flpContainer.Name = "flpContainer";
             // 
-            // btnPrint
+            // btnPrintPlayers
             // 
-            resources.ApplyResources(btnPrint, "btnPrint");
-            btnPrint.Name = "btnPrint";
-            btnPrint.UseVisualStyleBackColor = true;
-            btnPrint.Click += btnPrint_Click;
+            resources.ApplyResources(btnPrintPlayers, "btnPrintPlayers");
+            btnPrintPlayers.Name = "btnPrintPlayers";
+            btnPrintPlayers.UseVisualStyleBackColor = true;
+            btnPrintPlayers.Click += btnPrint_Click;
             // 
             // pnlMain
             // 
+            pnlMain.Controls.Add(cbWhat);
+            pnlMain.Controls.Add(btnPrintMatches);
+            pnlMain.Controls.Add(btnPrintPlayers);
+            pnlMain.Controls.Add(flpContainer);
             resources.ApplyResources(pnlMain, "pnlMain");
-            pnlMain.Controls.Add(btnPrint);
-            pnlMain.Controls.Add(flpPlayers);
             pnlMain.Name = "pnlMain";
             // 
-            // printPreviewDialog
+            // cbWhat
             // 
-            resources.ApplyResources(printPreviewDialog, "printPreviewDialog");
-            printPreviewDialog.Document = printDocument;
-            printPreviewDialog.Name = "printPreviewDialog1";
+            cbWhat.FormattingEnabled = true;
+            resources.ApplyResources(cbWhat, "cbWhat");
+            cbWhat.Name = "cbWhat";
+            cbWhat.SelectedIndexChanged += cbWhat_SelectedIndexChanged;
             // 
-            // printDocument
+            // btnPrintMatches
             // 
-            printDocument.PrintPage += printDocument1_PrintPage;
+            resources.ApplyResources(btnPrintMatches, "btnPrintMatches");
+            btnPrintMatches.Name = "btnPrintMatches";
+            btnPrintMatches.UseVisualStyleBackColor = true;
+            btnPrintMatches.Click += btnPrintMatches_Click;
             // 
             // RankingList
             // 
@@ -80,10 +86,10 @@
 
         #endregion
 
-        private FlowLayoutPanel flpPlayers;
-        private Button btnPrint;
+        private FlowLayoutPanel flpContainer;
+        private Button btnPrintPlayers;
         private Panel pnlMain;
-        private PrintPreviewDialog printPreviewDialog;
-        private System.Drawing.Printing.PrintDocument printDocument;
+        private Button btnPrintMatches;
+        private ComboBox cbWhat;
     }
 }

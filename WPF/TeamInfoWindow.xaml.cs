@@ -1,19 +1,9 @@
 ﻿using DAL.Models;
 using DAL.Repository;
-using RestSharp;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WPF
 {
@@ -55,7 +45,7 @@ namespace WPF
 
             if (result == null)
             {
-                SetAllText("Not available");
+                SetAllText(Properties.Resources.not_available);
                 return;
             }
 
@@ -86,9 +76,9 @@ namespace WPF
         private void SetLoading(bool loading)
         {
             if (loading)
-                SetAllText("Loading...");
+                SetAllText(Properties.Resources.loading);
             else
-                SetAllText("Not available");
+                SetAllText(Properties.Resources.not_available);
         }
 
         private void SetAllText(string str)

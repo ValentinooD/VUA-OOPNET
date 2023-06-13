@@ -4,32 +4,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
+        xmlns:lang="clr-namespace:WPF.Properties"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="Settings" Height="330" Width="420">
     <StackPanel Orientation="Horizontal">
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="300">
             <Grid>
-                <Label Content="Language:" HorizontalAlignment="Left" Height="24" Margin="10,10,0,0" VerticalAlignment="Top" Width="160"/>
+                <Label Content="{x:Static lang:Resources.setting_language}" HorizontalAlignment="Left" Height="28" Margin="10,10,0,0" VerticalAlignment="Top" Width="160"/>
                 <ComboBox x:Name="cbLanguage" HorizontalAlignment="Left" Height="24" Margin="10,40,0,0" VerticalAlignment="Top" Width="160" SelectionChanged="cbLanguage_SelectionChanged"/>
             </Grid>
 
             <Grid>
-                <Label Content="Repository Type:" HorizontalAlignment="Left" Height="24" Margin="10,10,0,0" VerticalAlignment="Top" Width="160"/>
+                <Label Content="{x:Static lang:Resources.setting_repo}" HorizontalAlignment="Left" Height="28" Margin="10,10,0,0" VerticalAlignment="Top" Width="160"/>
                 <ComboBox x:Name="cbRepoType" HorizontalAlignment="Left" Height="24" Margin="10,40,0,0" VerticalAlignment="Top" Width="160" SelectionChanged="cbRepoType_SelectionChanged"/>
             </Grid>
 
             <Grid>
-                <Label Content="Gender:" HorizontalAlignment="Left" Height="24" Margin="10,10,0,0" VerticalAlignment="Top" Width="160"/>
+                <Label Content="{x:Static lang:Resources.setting_gender}" HorizontalAlignment="Left" Height="28" Margin="10,10,0,0" VerticalAlignment="Top" Width="160"/>
                 <ComboBox x:Name="cbGender" HorizontalAlignment="Left" Height="24" Margin="10,40,0,0" VerticalAlignment="Top" Width="160" SelectionChanged="cbGender_SelectionChanged"/>
             </Grid>
             
             <Grid>
-                <Label Content="Window mode:" HorizontalAlignment="Left" Height="24" Margin="10,10,0,0" VerticalAlignment="Top" Width="160"/>
-                <ComboBox x:Name="cbWindowMode" HorizontalAlignment="Left" Height="24" Margin="10,40,0,0" VerticalAlignment="Top" Width="160" SelectionChanged="cbGender_SelectionChanged"/>
+                <Label Content="{x:Static lang:Resources.setting_window_mode}" HorizontalAlignment="Left" Height="28" Margin="10,10,0,0" VerticalAlignment="Top" Width="160"/>
+                <ComboBox x:Name="cbWindowMode" HorizontalAlignment="Left" Height="24" Margin="10,40,0,0" VerticalAlignment="Top" Width="160" SelectionChanged="cbWindowState_SelectionChanged"/>
             </Grid>
         </StackPanel>
 
-        <Button Width="100" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0, 0, 0, 10" Content="Confirm" Click="Button_Click"/>
+        <Button Width="100" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0, 0, 0, 10" Content="{x:Static lang:Resources.setting_confirm}" Click="Button_Click"/>
     </StackPanel>
 </Window>

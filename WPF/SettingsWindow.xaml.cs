@@ -30,6 +30,11 @@ namespace WPF
             this.settings = settings;
             InitializeComponent();
 
+            if (settings.Resolution == null)
+            {
+                settings.Resolution = new Resolution();
+            }
+
             cbLanguage.Items.Add(HR);
             cbLanguage.Items.Add(EN);
 
@@ -43,9 +48,15 @@ namespace WPF
                 cbRepoType.Items.Add(type.ToString());
             }
 
+            foreach (Resolution.WindowState state in Enum.GetValues(typeof(Resolution.WindowState)))
+            {
+                cbWindowMode.Items.Add(state.ToString());
+            }
+
             cbLanguage.SelectedItem = settings.Language;
-            cbRepoType.SelectedIndex = (int)settings.DataRepositoryType;
-            cbGender.SelectedIndex = (int)settings.Gender;
+            cbRepoType.SelectedIndex = (int) settings.DataRepositoryType;
+            cbGender.SelectedIndex = (int) settings.Gender;
+            cbWindowMode.SelectedIndex = (int) settings.Resolution.State;
         }
 
         private void cbLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -64,6 +75,12 @@ namespace WPF
         {
             string selection = e.AddedItems[0].ToString();
             settings.Gender = Enum.Parse<EnumGender>(selection);
+        }
+        
+        private void cbWindowState_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selection = e.AddedItems[0].ToString();
+            settings.Resolution.State = Enum.Parse<Resolution.WindowState>(selection);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

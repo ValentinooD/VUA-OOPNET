@@ -4,9 +4,11 @@ using DAL.Settings;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,30 +34,72 @@ namespace WPF
 
         public MainWindow()
         {
+            InitSettings();
             InitializeComponent();
+            SetupScreen();
+
             this.Loaded += MainWindow_Loaded;
             this.Closed += MainWindow_Closed;
         }
 
-        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void InitSettings()
         {
             if (SettingsService.IsFirstRun())
             {
                 settings = new Settings();
                 SettingsWindow window = new SettingsWindow(settings);
-                window.Show();
+                window.ShowDialog();
             }
             else
             {
                 settings = SettingsService.Load();
             }
+            SetCulture(settings.Language);
+        }
 
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
             repository = DataRepositoryFactory.GetRepository(settings.DataRepositoryType, settings.Gender);
 
             ucMatchInfo.Content = new NoMatchSelectedUserControl();
 
             LoadComboBoxes();
             LoadMatch();
+        }
+
+        private void SetCulture(string culture)
+        {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(culture);
+        }
+
+        private void SetupScreen()
+        {
+            if (settings.Resolution == null)
+            {
+                settings.Resolution = new Resolution();
+            }
+
+            if (settings.Resolution.State == Resolution.WindowState.Normal)
+            {
+                WindowState = WindowState.Normal;
+            } else if (settings.Resolution.State == Resolution.WindowState.FullScreen)
+            {
+                WindowState = WindowState.Maximized;
+            } else if (settings.Resolution.State == Resolution.WindowState.SaveLast)
+            {
+                WindowState = WindowState.Normal;
+
+                if (settings.Resolution.Width.HasValue)
+                    this.Width = settings.Resolution.Width.Value;
+
+                if (settings.Resolution.Height.HasValue)
+                    this.Height = settings.Resolution.Height.Value;
+
+            } else
+            {
+                WindowState = WindowState.Normal;
+            }
         }
 
         private async void LoadMatch()
@@ -73,7 +117,7 @@ namespace WPF
 
             if (matches.Count > 0 && home != null && away != null)
             {
-                ucMatchInfo.Content = new MatchInfoUserControl(home, away, matches[0]);
+                ucMatchInfo.Content = new MatchInfoUserControl(settings, home, away, matches[0]);
             }
             else
             {
@@ -86,6 +130,12 @@ namespace WPF
         private async void LoadComboBoxes()
         {
             SetLoading(true);
+
+            cbAwayTeam.SelectedValue = null;
+            cbAwayTeam.Items.Clear();
+
+            cbHomeTeam.SelectedValue = null;
+            cbHomeTeam.Items.Clear();
 
             List<Team> teams = await repository.GetTeams();
             Team? selectedHome = null;
@@ -114,6 +164,7 @@ namespace WPF
 
             List<Match> matches = await repository.GetMatches(settings.FavouriteTeam);
 
+            cbAwayTeam.SelectedValue = null;
             cbAwayTeam.Items.Clear();
 
             if (matches.Count == 0)
@@ -151,12 +202,29 @@ namespace WPF
 
         private void MainWindow_Closed(object? sender, EventArgs e)
         {
+            if (settings.Resolution == null)
+                settings.Resolution = new Resolution();
+
+            settings.Resolution.Height = (int)Height;
+            settings.Resolution.Width = (int)Width;
+
             SettingsService.Save(settings);
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            new SettingsWindow(settings).ShowDialog();
+            SettingsWindow window = new SettingsWindow(settings);
+            window.ShowDialog();
+
+            SetCulture(settings.Language);
+            SetupScreen();
+
+            repository = DataRepositoryFactory.GetRepository(settings.DataRepositoryType, settings.Gender);
+
+            ucMatchInfo.Content = new NoMatchSelectedUserControl();
+
+            LoadComboBoxes();
+            LoadMatch();
         }
 
         public void SetLoading(bool loading)
@@ -175,7 +243,7 @@ namespace WPF
 
         private void cbTeams_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (loading) return;
+            if (loading || e.AddedItems.Count == 0) return;
 
             Team team = (Team) e.AddedItems[0];
 

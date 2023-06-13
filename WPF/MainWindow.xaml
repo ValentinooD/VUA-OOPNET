@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
+        xmlns:lang="clr-namespace:WPF.Properties"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1000">
 
@@ -19,12 +20,12 @@
 
         <Grid Grid.Row="0">
             <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,14,0,0">
-                <Button Content="Settings" Height="24" Width="100" Click="SettingsButton_Click" VerticalAlignment="Bottom" Template="{StaticResource AnimatedButton}"/>
+                <Button Content="{x:Static lang:Resources.settings}" Height="24" Width="100" Click="SettingsButton_Click" VerticalAlignment="Bottom" Template="{StaticResource AnimatedButton}"/>
                 <ProgressBar x:Name="pbLoading" Margin="0, 0, 0, 32" Height="12" Width="200" VerticalAlignment="Top" Minimum="0" Maximum="100" IsIndeterminate="true"/>
             </Grid>
 
             <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8">
-                <Label Content="Home team:" HorizontalAlignment="Left" Height="24" Margin="0,0,0,0" VerticalAlignment="Top" Width="160"/>
+                <Label Content="{x:Static lang:Resources.home_team}" HorizontalAlignment="Left" Height="24" Margin="0,0,0,0" VerticalAlignment="Top" Width="160"/>
 
                 <StackPanel Orientation="Horizontal">
                     <ComboBox x:Name="cbHomeTeam" HorizontalAlignment="Left" Height="24" Margin="0,25,4,0" VerticalAlignment="Top" Width="157" SelectionChanged="cbTeams_SelectionChanged"/>
@@ -33,7 +34,7 @@
             </Grid>
 
             <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="8">
-                <Label Content="Away team:" HorizontalAlignment="Left" Height="24" Margin="0,0,0,0" VerticalAlignment="Top" Width="160"/>
+                <Label Content="{x:Static lang:Resources.away_team}" HorizontalAlignment="Left" Height="24" Margin="0,0,0,0" VerticalAlignment="Top" Width="160"/>
 
                 <StackPanel Orientation="Horizontal">
                     <ComboBox x:Name="cbAwayTeam" HorizontalAlignment="Left" Height="24" Margin="0,25,4,0" VerticalAlignment="Top" Width="157" SelectionChanged="cbTeams_SelectionChanged"/>

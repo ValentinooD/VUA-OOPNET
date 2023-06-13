@@ -1,9 +1,4 @@
-﻿using DAL.Repository.API;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DAL.Repository.Implementation;
 
 namespace DAL.Repository
 {
@@ -19,7 +14,7 @@ namespace DAL.Repository
                 return new ApiDataRepository(gender);
             } else
             {
-                return null;
+                return new FileDataRepository(gender);
             }
         }
     }

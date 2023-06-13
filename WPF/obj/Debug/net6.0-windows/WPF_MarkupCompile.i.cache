@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 D:\VUA\NET\OOPNET\WPF\App.xaml
-8-1777690553
+9777052191
 
-11-825413188
+13-1500068113
 197-542377267
-ControlTemplates\AnimatedButton.xaml;MainWindow.xaml;SettingsWindow.xaml;TeamInfoWindow.xaml;UserControls\Field\FootballFieldUserControl.xaml;UserControls\Field\PlayerBubbleUserControl.xaml;UserControls\MatchInfoUserControl.xaml;UserControls\NoMatchSelectedUserControl.xaml;
+ControlTemplates\AnimatedButton.xaml;MainWindow.xaml;PlayerInfoWindow.xaml;SettingsWindow.xaml;TeamInfoWindow.xaml;UserControls\Field\FootballFieldUserControl.xaml;UserControls\Field\PlayerBubbleUserControl.xaml;UserControls\MatchInfoUserControl.xaml;UserControls\NoMatchSelectedUserControl.xaml;
 
-True
+False
 

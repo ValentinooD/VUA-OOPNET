@@ -202,6 +202,11 @@ namespace WinForms
                 return;
             }
 
+            var culture = new CultureInfo(settings.Language);
+
+            Thread.CurrentThread.CurrentUICulture = culture;
+            Thread.CurrentThread.CurrentCulture = culture;
+
             RankingList list = new RankingList(settings, repository, settings.FavouriteTeam);
             list.ShowDialog();
         }

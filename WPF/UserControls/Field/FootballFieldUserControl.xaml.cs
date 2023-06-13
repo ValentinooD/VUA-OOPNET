@@ -1,33 +1,22 @@
 ﻿using DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DAL.Settings;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WPF.UserControls.Field;
 
 namespace WPF.UserControls
 {
-    /// <summary>
-    /// Interaction logic for FootballFieldUserControl.xaml
-    /// </summary>
     public partial class FootballFieldUserControl : UserControl
     {
+        private Settings settings;
         private Team home;
         private Team away;
         private Match match;
 
-        public FootballFieldUserControl(Team home, Team away, Match match)
+        public FootballFieldUserControl(Settings settings, Team home, Team away, Match match)
         {
+            this.settings = settings;
             this.home = home;
             this.away = away;
             this.match = match;
@@ -48,37 +37,67 @@ namespace WPF.UserControls
 
             foreach (Player player in homeTeam)
             {
+                PlayerBubbleUserControl ctrl = new PlayerBubbleUserControl(player, true);
+                ctrl.MouseDown += HomePlayerBubbleClicked;
+
                 if (player.Position == Position.Goalie)
                 {
-                    spLeftGoalie.Children.Add(new PlayerBubbleUserControl(player, true));
+                    spLeftGoalie.Children.Add(ctrl);
                 } else if (player.Position == Position.Defender)
                 {
-                    spLeftDefender.Children.Add(new PlayerBubbleUserControl(player, true));
+                    spLeftDefender.Children.Add(ctrl);
                 } else if (player.Position == Position.Midfield)
                 {
-                    spLeftMidfield.Children.Add(new PlayerBubbleUserControl(player, true));
+                    spLeftMidfield.Children.Add(ctrl);
                 } else if (player.Position == Position.Forward)
                 {
-                    spLeftForward.Children.Add(new PlayerBubbleUserControl(player, true));
+                    spLeftForward.Children.Add(ctrl);
                 }
             }
 
             foreach (Player player in awayTeam)
             {
+                PlayerBubbleUserControl ctrl = new PlayerBubbleUserControl(player, false);
+                ctrl.MouseDown += AwayPlayerBubbleClicked;
+
                 if (player.Position == Position.Goalie)
                 {
-                    spRightGoalie.Children.Add(new PlayerBubbleUserControl(player, false));
+                    spRightGoalie.Children.Add(ctrl);
                 } else if (player.Position == Position.Defender)
                 {
-                    spRightDefender.Children.Add(new PlayerBubbleUserControl(player, false));
+                    spRightDefender.Children.Add(ctrl);
                 } else if (player.Position == Position.Midfield)
                 {
-                    spRightMidfield.Children.Add(new PlayerBubbleUserControl(player, false));
+                    spRightMidfield.Children.Add(ctrl);
                 } else if (player.Position == Position.Forward)
                 {
-                    spRightForward.Children.Add(new PlayerBubbleUserControl(player, false));
+                    spRightForward.Children.Add(ctrl);
                 }
             }
+        }
+
+        private void HomePlayerBubbleClicked(object sender, MouseButtonEventArgs e)
+        {
+            PlayerBubbleUserControl ctrl = (PlayerBubbleUserControl)e.Source;
+            PlayerInfoWindow window = new PlayerInfoWindow(
+                    settings,
+                    home,
+                    match.HomeTeamStatistics,
+                    ctrl.Player
+                );
+            window.ShowDialog();
+        }
+
+        private void AwayPlayerBubbleClicked(object sender, MouseButtonEventArgs e)
+        {
+            PlayerBubbleUserControl ctrl = (PlayerBubbleUserControl)e.Source;
+            PlayerInfoWindow window = new PlayerInfoWindow(
+                    settings,
+                    away,
+                    match.AwayTeamStatistics,
+                    ctrl.Player
+                );
+            window.ShowDialog();
         }
     }
 }

@@ -125,7 +125,7 @@ namespace DAL.Models
         public Player[] Substitutes { get; set; }
     }
 
-    public partial class Player
+    public partial class Player : IComparable<Player>
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -139,6 +139,14 @@ namespace DAL.Models
         [JsonProperty("position")]
         [JsonConverter(typeof(PositionConverter))]
         public Position Position { get; set; }
+
+        public int CompareTo(Player? other)
+        {
+            if (!ShirtNumber.HasValue || !other.ShirtNumber.HasValue)
+                return 0;
+
+            return ShirtNumber.Value.CompareTo(other.ShirtNumber.Value);
+        }
 
         public override bool Equals(object? obj)
         {
